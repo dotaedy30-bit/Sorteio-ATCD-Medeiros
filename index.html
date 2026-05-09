@@ -44,7 +44,6 @@
             transition: background 0.8s ease;
         }
 
-        /* Partículas de fundo sutis */
         body::before {
             content: '';
             position: fixed;
@@ -75,7 +74,6 @@
             }
         }
 
-        /* Pulso de fundo durante sorteio ativo */
         body.sorteio-ativo {
             animation: pulsoFundo 2s ease-in-out infinite;
         }
@@ -98,7 +96,6 @@
             padding: 0 20px;
         }
 
-        /* ==================== HEADER ==================== */
         .header {
             position: fixed;
             top: 0;
@@ -131,7 +128,6 @@
             flex-shrink: 0;
         }
 
-        /* Container da logo real - substituir por imagem */
         .logo-marca {
             width: 44px;
             height: 44px;
@@ -161,7 +157,6 @@
             transform: rotate(25deg);
             pointer-events: none;
         }
-        /* Substitua o texto "AM" por uma tag <img> com sua logo real */
         .logo-marca span {
             position: relative;
             z-index: 1;
@@ -235,7 +230,6 @@
             box-shadow: 0 0 20px rgba(229, 57, 53, 0.5);
         }
 
-        /* ==================== ÁREA DE BOAS-VINDAS ==================== */
         .boas-vindas {
             margin-top: 100px;
             padding: 18px 22px;
@@ -278,7 +272,6 @@
             color: #ffcdd2;
         }
 
-        /* ==================== HERO CINEMATOGRÁFICO ==================== */
         .hero-wrapper {
             position: relative;
             margin-top: 20px;
@@ -328,7 +321,6 @@
             pointer-events: none;
         }
 
-        /* Selo "AO VIVO" sobre o hero */
         .selo-ao-vivo {
             position: absolute;
             top: 16px;
@@ -377,7 +369,6 @@
             }
         }
 
-        /* Overlay de gradiente decorativo no hero */
         .hero-wrapper .hero {
             position: relative;
             z-index: 2;
@@ -395,7 +386,6 @@
             pointer-events: none;
         }
 
-        /* ==================== CARDS ==================== */
         .card-glass {
             background: var(--vidro-fosco);
             backdrop-filter: blur(14px);
@@ -412,7 +402,6 @@
             box-shadow: 0 20px 44px -12px rgba(0, 0, 0, 0.45), var(--sombra-glow-azul);
         }
 
-        /* ==================== ÁREA DE PARTICIPANTES ==================== */
         .participants-area h3 {
             font-family: 'Montserrat', sans-serif;
             font-size: 1.05rem;
@@ -473,7 +462,6 @@
             color: var(--azul-secundario);
         }
 
-        /* ==================== ROLETA / SORTEIO ==================== */
         .roleta-container h2 {
             text-align: center;
             font-family: 'Montserrat', sans-serif;
@@ -548,7 +536,6 @@
             }
         }
 
-        /* ==================== OVERLAY DE VITÓRIA ==================== */
         .vitoria-overlay {
             position: fixed;
             top: 0;
@@ -604,7 +591,6 @@
             }
         }
 
-        /* ==================== BOTÕES ==================== */
         .btn-group {
             display: flex;
             flex-wrap: wrap;
@@ -654,7 +640,17 @@
             border-color: var(--vermelho-promocao);
         }
 
-        /* Botão WhatsApp */
+        /* ========== ÁREA FIXA DE AÇÕES DO VENCEDOR ========== */
+        #winnerActions {
+            text-align: center;
+            margin-top: 16px;
+            display: none; /* inicialmente oculto - controlado via JS */
+        }
+
+        #winnerActions.visivel {
+            display: block !important;
+        }
+
         .btn-whatsapp {
             background: linear-gradient(135deg, #25D366, #128C7E);
             border: 2px solid rgba(255, 255, 255, 0.3);
@@ -664,15 +660,20 @@
             border-radius: 50px;
             cursor: pointer;
             font-size: 0.95rem;
-            display: none;
+            display: inline-flex;
             align-items: center;
             gap: 8px;
+            text-decoration: none;
             transition: all var(--transicao-suave);
             box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
             animation: apareceWhatsApp 0.5s ease-out;
         }
-        .btn-whatsapp.visivel {
-            display: inline-flex;
+        .btn-whatsapp:hover {
+            background: linear-gradient(135deg, #1ebe5b, #0d6e5c);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 28px rgba(37, 211, 102, 0.5);
+            color: #fff;
+            text-decoration: none;
         }
         @keyframes apareceWhatsApp {
             0% {
@@ -684,13 +685,7 @@
                 transform: translateY(0) scale(1);
             }
         }
-        .btn-whatsapp:hover {
-            background: linear-gradient(135deg, #1ebe5b, #0d6e5c);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 28px rgba(37, 211, 102, 0.5);
-        }
 
-        /* ==================== ÁREA DE RESULTADO ==================== */
         .result-area {
             border-top: 1px solid rgba(23, 78, 166, 0.35);
             padding-top: 18px;
@@ -722,7 +717,6 @@
             text-align: center;
         }
 
-        /* ==================== FOOTER ==================== */
         footer {
             text-align: center;
             padding: 28px 16px 36px;
@@ -736,7 +730,6 @@
             margin-bottom: 4px;
         }
 
-        /* ==================== RESPONSIVIDADE ==================== */
         @media (max-width: 768px) {
             .main-wrapper {
                 padding: 0 12px;
@@ -960,7 +953,6 @@
 </head>
 <body>
 
-    <!-- Overlay de vitória -->
     <div class="vitoria-overlay" id="vitoriaOverlay">
         <div class="anel-vitoria"></div>
     </div>
@@ -968,7 +960,6 @@
     <div class="header">
         <div class="header-container">
             <div class="logo-area">
-                <!-- 🏷️ Substitua o <span> por <img src="sua-logo.png" alt="Atacadão Medeiros"> -->
                 <div class="logo-marca">
                     <span>AM</span>
                 </div>
@@ -983,7 +974,6 @@
     </div>
 
     <main class="main-wrapper">
-        <!-- Área de Boas-Vindas -->
         <div class="boas-vindas">
             <div class="icone-boas-vindas">🎯</div>
             <h3>Bem-vindo ao Sorteio Oficial</h3>
@@ -993,17 +983,12 @@
             </div>
         </div>
 
-        <!-- HERO CINEMATOGRÁFICO COM SELO AO VIVO -->
         <div class="hero-wrapper">
             <div class="hero-background-image"></div>
-            <!-- Selo "AO VIVO" decorativo -->
             <div class="selo-ao-vivo">
                 <span class="dot"></span> AO VIVO
             </div>
-            <!-- Espaço estratégico para PNGs decorativos: fogos, brilhos, selos promocionais -->
-            <!-- Exemplo: <img src="selo-promocao.png" class="decor-selo" alt="Promoção"> -->
             <section class="hero">
-                <!-- Área reservada para overlay de textos promocionais ou imagens PNG decorativas -->
             </section>
         </div>
 
@@ -1030,12 +1015,14 @@
                 <button class="btn-moderno secondary" id="novoSorteioBtn"><i class="fas fa-redo-alt"></i> NOVO SORTEIO</button>
                 <button class="btn-moderno secondary" id="resetResultadoBtn"><i class="fas fa-broom"></i> RESETAR TUDO</button>
             </div>
-            <!-- Botão WhatsApp do vencedor (aparece dinamicamente) -->
-            <div style="text-align: center; margin-top: 8px;">
-                <button class="btn-whatsapp" id="btnWhatsApp" onclick="abrirWhatsApp()">
+
+            <!-- ========== ÁREA FIXA E PERMANENTE DE AÇÕES DO VENCEDOR ========== -->
+            <div id="winnerActions">
+                <a id="whatsappWinnerBtn" class="btn-whatsapp" target="_blank" rel="noopener noreferrer">
                     <i class="fab fa-whatsapp"></i> Chamar Vencedor no WhatsApp
-                </button>
+                </a>
             </div>
+
             <div class="result-area" id="resultArea">
                 <div id="resultadoDisplay" style="font-size: 1.1rem;">Nenhum sorteio realizado até o momento.</div>
             </div>
@@ -1066,6 +1053,10 @@
         const ultimoVencedorSpan = document.getElementById('ultimoVencedor');
         const dataHoraSorteioSpan = document.getElementById('dataHoraSorteio');
         const totalBaseInfoSpan = document.getElementById('totalBaseInfo');
+
+        // Elementos fixos da área de ações do vencedor
+        const winnerActionsDiv = document.getElementById('winnerActions');
+        const whatsappWinnerBtn = document.getElementById('whatsappWinnerBtn');
 
         function processarListaParticipantes() {
             const raw = textarea.value;
@@ -1149,10 +1140,7 @@
             dynamicNumberDiv.classList.add('glow-animate');
             setTimeout(() => dynamicNumberDiv.classList.remove('glow-animate'), 700);
             lancarConfetes();
-            // Dispara overlay de vitória
             dispararOverlayVitoria();
-            // Atualiza botão WhatsApp
-            atualizarBotaoWhatsApp();
         }
 
         function abortarAnimacao() {
@@ -1165,7 +1153,7 @@
             document.body.classList.remove('sorteio-ativo');
         }
 
-        // ========== ANIMAÇÃO DRAMÁTICA COM 45 SEGUNDOS: RÁPIDO NO INÍCIO, DESACELERAÇÃO TARDIA ==========
+        // ========== ANIMAÇÃO DRAMÁTICA COM 45 SEGUNDOS ==========
         function iniciarSorteioAnimado() {
             if (sorteioAtivo) return;
             if (participantesArray.length === 0) {
@@ -1181,7 +1169,6 @@
             const indexVencedorFinal = Math.floor(Math.random() * participantesArray.length);
             const vencedorFinal = participantesArray[indexVencedorFinal];
 
-            // Total de passos para garantir ~45 segundos (ajuste fino)
             const totalSteps = 520;
             let currentStep = 0;
 
@@ -1198,22 +1185,15 @@
                     dynamicNumberDiv.innerText = tempNumber;
 
                     let delay;
-                    // Fase 1: 0s até ~30s (primeiros ~350 passos) -> extremamente rápido (18ms)
                     if (currentStep < 350) {
-                        delay = 18; // muito rápido, sensação de cassino
-                    }
-                    // Fase 2: 30s até ~35s (350 até 410) -> desaceleração leve: 18ms -> 80ms
-                    else if (currentStep < 410) {
-                        let progress = (currentStep - 350) / 60; // 0 a 1
+                        delay = 18;
+                    } else if (currentStep < 410) {
+                        let progress = (currentStep - 350) / 60;
                         delay = 18 + (80 - 18) * Math.pow(progress, 1.2);
-                    }
-                    // Fase 3: 35s até ~40s (410 até 470) -> desaceleração média: 80ms -> 350ms
-                    else if (currentStep < 470) {
+                    } else if (currentStep < 470) {
                         let progress = (currentStep - 410) / 60;
                         delay = 80 + (350 - 80) * Math.pow(progress, 1.3);
-                    }
-                    // Fase 4: 40s até ~45s (470 até 520) -> desaceleração forte, suspense extremo: 350ms -> 950ms
-                    else {
+                    } else {
                         let progress = (currentStep - 470) / 50;
                         delay = 350 + (950 - 350) * Math.pow(progress, 1.6);
                     }
@@ -1224,17 +1204,18 @@
                         stepAnimation();
                     }, delay);
                 } else {
-                    // Final: mostra o vencedor real
                     dynamicNumberDiv.innerText = vencedorFinal;
                     dynamicNumberDiv.classList.remove('blur-effect');
                     document.body.classList.remove('sorteio-ativo');
+                    sorteioAtivo = false;
+                    animationTimeout = null;
                     vencedorAtual = vencedorFinal;
                     const dataSorteio = new Date();
                     dataHoraUltimo = dataSorteio;
                     atualizarUIResultado(vencedorFinal, dataSorteio);
+                    // Mostrar botão ANTES de efeitoVitoriaNumero para garantir que vencedorAtual já está definido
+                    mostrarBotaoWhatsApp(vencedorFinal);
                     efeitoVitoriaNumero();
-                    sorteioAtivo = false;
-                    animationTimeout = null;
                 }
             }
 
@@ -1309,61 +1290,46 @@
             }, 2200);
         }
 
-        // ========== BOTÃO WHATSAPP ==========
-        const btnWhatsApp = document.getElementById('btnWhatsApp');
-        let numeroWhatsAppAtual = null;
-
-        function atualizarBotaoWhatsApp() {
-            if (!btnWhatsApp) return;
-            if (vencedorAtual && vencedorAtual.length >= 8 && /^\d+$/.test(vencedorAtual)) {
-                numeroWhatsAppAtual = vencedorAtual;
-                btnWhatsApp.classList.add('visivel');
-                // Reinicia animação
-                btnWhatsApp.style.animation = 'none';
-                btnWhatsApp.offsetHeight;
-                btnWhatsApp.style.animation = 'apareceWhatsApp 0.5s ease-out';
-            } else {
+        // ========== FUNÇÕES ROBUSTAS PARA O BOTÃO WHATSAPP FIXO ==========
+        function mostrarBotaoWhatsApp(numero) {
+            if (!winnerActionsDiv || !whatsappWinnerBtn) return;
+            if (!numero || String(numero).trim() === '') {
                 esconderBotaoWhatsApp();
+                return;
             }
+
+            // Formatar número para o link do WhatsApp
+            let numeroLimpo = String(numero).replace(/\D/g, '');
+            if (numeroLimpo === '') {
+                // Número sem dígitos: usar como texto bruto no link
+                numeroLimpo = numero;
+            } else if (!numeroLimpo.startsWith('55')) {
+                numeroLimpo = '55' + numeroLimpo;
+            }
+
+            // Atualizar o href do link fixo
+            whatsappWinnerBtn.href = 'https://wa.me/' + numeroLimpo;
+
+            // Exibir a área de ações (dupla garantia: classList + style)
+            winnerActionsDiv.classList.add('visivel');
+            winnerActionsDiv.style.display = 'block';
+
+            // Reiniciar animação de aparição
+            whatsappWinnerBtn.style.animation = 'none';
+            whatsappWinnerBtn.offsetHeight; // trigger reflow
+            whatsappWinnerBtn.style.animation = 'apareceWhatsApp 0.5s ease-out forwards';
         }
 
         function esconderBotaoWhatsApp() {
-            if (!btnWhatsApp) return;
-            btnWhatsApp.classList.remove('visivel');
-            numeroWhatsAppAtual = null;
-        }
-
-        function abrirWhatsApp() {
-            if (!numeroWhatsAppAtual) return;
-            let numeroLimpo = numeroWhatsAppAtual.replace(/\D/g, '');
-            // Se não começar com 55, adiciona o código do Brasil
-            if (!numeroLimpo.startsWith('55')) {
-                numeroLimpo = '55' + numeroLimpo;
+            if (!winnerActionsDiv) return;
+            winnerActionsDiv.classList.remove('visivel');
+            winnerActionsDiv.style.display = 'none';
+            if (whatsappWinnerBtn) {
+                whatsappWinnerBtn.href = '#'; // reset seguro
             }
-            const url = 'https://wa.me/' + numeroLimpo;
-            window.open(url, '_blank');
         }
 
-        // ========== OBSERVER PARA DETECTAR MUDANÇAS NO DISPLAY DO VENCEDOR ==========
-        if (dynamicNumberDiv) {
-            const observer = new MutationObserver(() => {
-                const texto = dynamicNumberDiv.innerText || '';
-                // Se parece um número de telefone (somente dígitos, 8+ caracteres)
-                if (/^\d{8,}$/.test(texto.trim()) && participantesArray.includes(texto.trim())) {
-                    if (!vencedorAtual || vencedorAtual !== texto.trim()) {
-                        vencedorAtual = texto.trim();
-                        atualizarBotaoWhatsApp();
-                    }
-                }
-                // Se voltou a ser placeholder
-                if (['⚡ AGUARDANDO ⚡', '🎲 PRONTO 🎲', '📭 SEM DADOS', '📭 COLE NÚMEROS', '📭 BASE VAZIA'].includes(
-                        texto.trim())) {
-                    esconderBotaoWhatsApp();
-                }
-            });
-            observer.observe(dynamicNumberDiv, { characterData: true, childList: true, subtree: true });
-        }
-
+        // ========== EVENT LISTENERS ==========
         document.getElementById('sortearBtn').addEventListener('click', () => {
             if (participantesArray.length === 0) {
                 alert("❌ Nenhum participante cadastrado! Adicione números na área acima.");
@@ -1401,13 +1367,12 @@
 
         carregarExemploInicial();
 
-        // ========== CONTADOR FICTÍCIO OSCILANDO LENTAMENTE ENTRE 1009 E 1020 ==========
+        // ========== CONTADOR FICTÍCIO ==========
         const fakeCounterSpan = document.getElementById('fakeCounter');
         let fakeValue = 1012;
-        let fakeDirection = 1; // 1 para cima, -1 para baixo
+        let fakeDirection = 1;
         setInterval(() => {
             if (!fakeCounterSpan) return;
-            // Oscilação suave e lenta entre 1009 e 1020
             fakeValue += fakeDirection;
             if (fakeValue >= 1020) {
                 fakeValue = 1020;
@@ -1417,7 +1382,7 @@
                 fakeDirection = 1;
             }
             fakeCounterSpan.innerText = fakeValue;
-        }, 3800); // muda a cada 3.8 segundos, sensação orgânica
+        }, 3800);
     </script>
 </body>
 </html>
