@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Atacadão Medeiros | Grande Sorteio Oficial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1">
+    </script>
+    <style>
+        :root {
+            --azul-principal: #0F2D5C;
+            --azul-secundario: #174EA6;
+            --azul-claro: #1a5dc4;
+            --vermelho-promocao: #E53935;
+            --vermelho-escuro: #b71c1c;
+            --branco: #FFFFFF;
+            --fundo-escuro: #050816;
+            --fundo-card: #0a1028;
+            --borda-suave: rgba(23, 78, 166, 0.35);
+            --sombra-glow-azul: 0 0 40px rgba(23, 78, 166, 0.25);
+            --sombra-glow-vermelho: 0 0 32px rgba(229, 57, 53, 0.3);
+            --vidro-fosco: rgba(10, 16, 40, 0.7);
+            --raio-borda: 28px;
+            --raio-borda-mobile: 20px;
+            --transicao-suave: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Montserrat', sans-serif;
+            background: var(--fundo-escuro);
+            color: var(--branco);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transition: background 0.8s ease;
+        }
+
+        /* Partículas de fundo sutis */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.06), transparent),
+                radial-gradient(2px 2px at 70px 120px, rgba(255, 255, 255, 0.04), transparent),
+                radial-gradient(1px 1px at 150px 60px, rgba(23, 78, 166, 0.15), transparent),
+                radial-gradient(1px 1px at 280px 200px, rgba(229, 57, 53, 0.1), transparent),
+                radial-gradient(2px 2px at 400px 80px, rgba(255, 255, 255, 0.05), transparent),
+                radial-gradient(1px 1px at 500px 300px, rgba(23, 78, 166, 0.12), transparent);
+            background-repeat: repeat;
+            background-size: 550px 350px;
+            pointer-events: none;
+            z-index: 0;
+            animation: particulasSutis 20s linear infinite;
+        }
+
+        @keyframes particulasSutis {
+            0% {
+                background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
+            }
+            100% {
+                background-position: 550px 350px, 275px 175px, 137px 87px, 412px 262px, 275px 87px, 137px 262px;
+            }
+        }
+
+        /* Pulso de fundo durante sorteio ativo */
+        body.sorteio-ativo {
+            animation: pulsoFundo 2s ease-in-out infinite;
+        }
+
+        @keyframes pulsoFundo {
+            0%,
+            100% {
+                background-color: #050816;
+            }
+            50% {
+                background-color: #060c20;
+            }
+        }
+
+        .main-wrapper {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ==================== HEADER ==================== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: rgba(5, 8, 22, 0.82);
+            border-bottom: 1px solid var(--borda-suave);
+            z-index: 1000;
+            transition: all var(--transicao-suave);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: nowrap;
+            gap: 14px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        /* Container da logo real - substituir por imagem */
+        .logo-marca {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(145deg, #0F2D5C, #174EA6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.1rem;
+            letter-spacing: -0.5px;
+            color: #fff;
+            box-shadow: 0 6px 18px rgba(15, 45, 92, 0.4);
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        .logo-marca::after {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: -30%;
+            width: 60%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.12);
+            transform: rotate(25deg);
+            pointer-events: none;
+        }
+        /* Substitua o texto "AM" por uma tag <img> com sua logo real */
+        .logo-marca span {
+            position: relative;
+            z-index: 1;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 1.3rem;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.15;
+        }
+        .logo-text h2 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.3px;
+            white-space: nowrap;
+        }
+        .logo-text .subtitulo-logo {
+            font-size: 0.7rem;
+            color: #bcc9e0;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .badge-sorteio {
+            background: var(--vermelho-promocao);
+            padding: 5px 13px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            box-shadow: 0 0 14px rgba(229, 57, 53, 0.45);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            animation: badgePulse 2.5s ease-in-out infinite;
+        }
+        @keyframes badgePulse {
+            0%,
+            100% {
+                box-shadow: 0 0 14px rgba(229, 57, 53, 0.45);
+            }
+            50% {
+                box-shadow: 0 0 22px rgba(229, 57, 53, 0.7);
+            }
+        }
+
+        .btn-participar {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1.5px solid rgba(229, 57, 53, 0.55);
+            padding: 9px 20px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: white;
+            transition: all var(--transicao-suave);
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .btn-participar:hover {
+            background: var(--vermelho-promocao);
+            border-color: var(--vermelho-promocao);
+            transform: scale(1.03);
+            box-shadow: 0 0 20px rgba(229, 57, 53, 0.5);
+        }
+
+        /* ==================== ÁREA DE BOAS-VINDAS ==================== */
+        .boas-vindas {
+            margin-top: 100px;
+            padding: 18px 22px;
+            background: linear-gradient(135deg, rgba(15, 45, 92, 0.35), rgba(23, 78, 166, 0.18));
+            border: 1px solid var(--borda-suave);
+            border-radius: var(--raio-borda-mobile);
+            text-align: center;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            box-shadow: var(--sombra-glow-azul);
+        }
+        .boas-vindas .icone-boas-vindas {
+            font-size: 2rem;
+            margin-bottom: 6px;
+        }
+        .boas-vindas h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #fff;
+            letter-spacing: 0.2px;
+        }
+        .boas-vindas p {
+            font-size: 0.85rem;
+            color: #bcc9e0;
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+        .boas-vindas .destaque-clientes {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(229, 57, 53, 0.15);
+            border: 1px solid rgba(229, 57, 53, 0.35);
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.78rem;
+            margin-top: 8px;
+            color: #ffcdd2;
+        }
+
+        /* ==================== HERO CINEMATOGRÁFICO ==================== */
+        .hero-wrapper {
+            position: relative;
+            margin-top: 20px;
+            border-radius: var(--raio-borda-mobile);
+            overflow: hidden;
+            box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.55), var(--sombra-glow-azul);
+            background-color: #030617;
+            aspect-ratio: 16 / 9;
+            width: 100%;
+            border: 2px solid rgba(23, 78, 166, 0.3);
+            transition: all var(--transicao-suave);
+        }
+        .hero-wrapper:hover {
+            border-color: rgba(23, 78, 166, 0.55);
+            box-shadow: 0 24px 56px -12px rgba(0, 0, 0, 0.6), 0 0 50px rgba(23, 78, 166, 0.3);
+        }
+
+        .hero-background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://res.cloudinary.com/dfv4cy1ed/image/upload/v1778352945/thumb03_kp9ysq.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 0;
+            transition: transform 0.6s ease;
+        }
+        .hero-wrapper:hover .hero-background-image {
+            transform: scale(1.02);
+        }
+
+        .hero-background-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top,
+                    rgba(0, 0, 0, 0.78) 0%,
+                    rgba(0, 0, 0, 0.35) 50%,
+                    rgba(0, 0, 0, 0.08) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Selo "AO VIVO" sobre o hero */
+        .selo-ao-vivo {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            z-index: 3;
+            background: var(--vermelho-promocao);
+            color: #fff;
+            font-weight: 800;
+            font-size: 0.7rem;
+            letter-spacing: 1.5px;
+            padding: 6px 14px;
+            border-radius: 40px;
+            box-shadow: 0 0 20px rgba(229, 57, 53, 0.6);
+            animation: seloVivo 2s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        @keyframes seloVivo {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.85;
+                transform: scale(1.04);
+            }
+        }
+        .selo-ao-vivo .dot {
+            width: 8px;
+            height: 8px;
+            background: #fff;
+            border-radius: 50%;
+            animation: dotPulse 1.2s ease-in-out infinite;
+        }
+        @keyframes dotPulse {
+            0%,
+            100% {
+                opacity: 1;
+                box-shadow: 0 0 6px #fff;
+            }
+            50% {
+                opacity: 0.4;
+                box-shadow: 0 0 2px #fff;
+            }
+        }
+
+        /* Overlay de gradiente decorativo no hero */
+        .hero-wrapper .hero {
+            position: relative;
+            z-index: 2;
+            background: transparent;
+            backdrop-filter: none;
+            margin-top: 0;
+            box-shadow: none;
+            border: none;
+            min-height: auto;
+            height: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 20px;
+            pointer-events: none;
+        }
+
+        /* ==================== CARDS ==================== */
+        .card-glass {
+            background: var(--vidro-fosco);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: var(--raio-borda-mobile);
+            border: 1px solid var(--borda-suave);
+            box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.4);
+            padding: 24px 20px;
+            margin: 22px 0;
+            transition: all var(--transicao-suave);
+        }
+        .card-glass:hover {
+            border-color: rgba(23, 78, 166, 0.5);
+            box-shadow: 0 20px 44px -12px rgba(0, 0, 0, 0.45), var(--sombra-glow-azul);
+        }
+
+        /* ==================== ÁREA DE PARTICIPANTES ==================== */
+        .participants-area h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .participants-area h3 i {
+            color: var(--azul-secundario);
+        }
+        .participants-area p {
+            opacity: 0.75;
+            margin-bottom: 14px;
+            font-size: 0.85rem;
+            color: #bcc9e0;
+            line-height: 1.5;
+        }
+
+        .participants-area textarea {
+            width: 100%;
+            background: #070d1f;
+            border: 2px solid rgba(23, 78, 166, 0.45);
+            border-radius: 18px;
+            padding: 16px;
+            font-size: 0.95rem;
+            font-family: 'Inter', 'Courier New', monospace;
+            color: white;
+            resize: vertical;
+            transition: all var(--transicao-suave);
+            line-height: 1.6;
+            min-height: 140px;
+        }
+        .participants-area textarea:focus {
+            border-color: var(--vermelho-promocao);
+            outline: none;
+            box-shadow: 0 0 20px rgba(229, 57, 53, 0.3), 0 0 0 4px rgba(229, 57, 53, 0.06);
+        }
+        .participants-area textarea::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .counter {
+            background: rgba(15, 45, 92, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 16px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.82rem;
+            border: 1px solid rgba(23, 78, 166, 0.35);
+            flex-wrap: wrap;
+        }
+        .counter i {
+            color: var(--azul-secundario);
+        }
+
+        /* ==================== ROLETA / SORTEIO ==================== */
+        .roleta-container h2 {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .roleta-container h2 i {
+            color: var(--vermelho-promocao);
+        }
+
+        .winner-card {
+            background: #030617;
+            border-radius: var(--raio-borda-mobile);
+            padding: 36px 20px;
+            margin: 18px 0;
+            border: 2px solid rgba(23, 78, 166, 0.55);
+            box-shadow: var(--sombra-glow-azul), inset 0 0 30px rgba(0, 0, 0, 0.4);
+            transition: all var(--transicao-suave);
+            position: relative;
+            overflow: hidden;
+        }
+        .winner-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(23, 78, 166, 0.06) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .numero-sorteado {
+            font-size: clamp(2.2rem, 10vw, 4.5rem);
+            font-weight: 900;
+            font-family: 'Montserrat', 'Inter', monospace;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #ffffff, #e8d5a0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: none;
+            transition: filter 0.08s ease, transform 0.15s ease;
+            position: relative;
+            z-index: 1;
+            word-break: break-all;
+        }
+        .blur-effect {
+            filter: blur(3px);
+            transition: filter 0.06s;
+        }
+        .glow-animate {
+            animation: pulseGlow 0.7s ease-out;
+        }
+        @keyframes pulseGlow {
+            0% {
+                text-shadow: 0 0 0px white;
+                transform: scale(1);
+            }
+            40% {
+                text-shadow: 0 0 35px #E53935, 0 0 15px #174EA6;
+                transform: scale(1.04);
+            }
+            100% {
+                text-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+                transform: scale(1);
+            }
+        }
+
+        /* ==================== OVERLAY DE VITÓRIA ==================== */
+        .vitoria-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(ellipse at center, rgba(229, 57, 53, 0.2) 0%, transparent 65%);
+        }
+        .vitoria-overlay.ativo {
+            opacity: 1;
+            animation: overlayFadeIn 0.5s ease forwards;
+        }
+        .vitoria-overlay.desaparecendo {
+            opacity: 0;
+            transition: opacity 1.2s ease;
+        }
+        @keyframes overlayFadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.96);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .vitoria-overlay .anel-vitoria {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 215, 0, 0.7);
+            box-shadow: 0 0 80px rgba(255, 215, 0, 0.4), 0 0 160px rgba(229, 57, 53, 0.3);
+            animation: anelExpand 1.2s ease-out forwards;
+            position: absolute;
+        }
+        @keyframes anelExpand {
+            0% {
+                width: 60px;
+                height: 60px;
+                opacity: 1;
+            }
+            100% {
+                width: 350px;
+                height: 350px;
+                opacity: 0;
+            }
+        }
+
+        /* ==================== BOTÕES ==================== */
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            justify-content: center;
+            margin: 26px 0;
+        }
+        .btn-moderno {
+            padding: 13px 28px;
+            font-weight: 700;
+            border-radius: 50px;
+            border: none;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all var(--transicao-suave);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1.5px solid rgba(23, 78, 166, 0.45);
+            color: white;
+            letter-spacing: 0.3px;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            white-space: nowrap;
+        }
+        .btn-moderno:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        .btn-moderno:active {
+            transform: scale(0.97);
+        }
+        .btn-moderno.primary {
+            background: linear-gradient(135deg, var(--azul-secundario), var(--azul-principal));
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 6px 18px rgba(15, 45, 92, 0.5);
+            font-size: 0.95rem;
+            padding: 14px 32px;
+        }
+        .btn-moderno.primary:hover {
+            background: linear-gradient(135deg, var(--vermelho-promocao), var(--vermelho-escuro));
+            border-color: rgba(255, 255, 255, 0.35);
+            box-shadow: 0 8px 24px rgba(229, 57, 53, 0.5);
+            transform: translateY(-3px);
+        }
+        .btn-moderno.secondary:hover {
+            background: rgba(229, 57, 53, 0.18);
+            border-color: var(--vermelho-promocao);
+        }
+
+        /* Botão WhatsApp */
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            font-weight: 700;
+            padding: 14px 28px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            transition: all var(--transicao-suave);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
+            animation: apareceWhatsApp 0.5s ease-out;
+        }
+        .btn-whatsapp.visivel {
+            display: inline-flex;
+        }
+        @keyframes apareceWhatsApp {
+            0% {
+                opacity: 0;
+                transform: translateY(15px) scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        .btn-whatsapp:hover {
+            background: linear-gradient(135deg, #1ebe5b, #0d6e5c);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 28px rgba(37, 211, 102, 0.5);
+        }
+
+        /* ==================== ÁREA DE RESULTADO ==================== */
+        .result-area {
+            border-top: 1px solid rgba(23, 78, 166, 0.35);
+            padding-top: 18px;
+            margin-top: 18px;
+            font-size: 1rem;
+            text-align: center;
+        }
+        .vencedor-info {
+            background: linear-gradient(145deg, rgba(15, 45, 92, 0.3), rgba(229, 57, 53, 0.12));
+            border-radius: var(--raio-borda-mobile);
+            padding: 18px 16px;
+            margin-top: 26px;
+            font-weight: 500;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+            border: 1px solid var(--borda-suave);
+            font-size: 0.9rem;
+        }
+        .vencedor-info div {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .vencedor-info i {
+            color: var(--azul-secundario);
+            width: 18px;
+            text-align: center;
+        }
+
+        /* ==================== FOOTER ==================== */
+        footer {
+            text-align: center;
+            padding: 28px 16px 36px;
+            font-size: 0.78rem;
+            opacity: 0.6;
+            letter-spacing: 0.3px;
+            line-height: 1.5;
+        }
+        footer .icone-footer {
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+
+        /* ==================== RESPONSIVIDADE ==================== */
+        @media (max-width: 768px) {
+            .main-wrapper {
+                padding: 0 12px;
+            }
+            .header-container {
+                padding: 10px 14px;
+                gap: 10px;
+            }
+            .logo-marca {
+                width: 38px;
+                height: 38px;
+                border-radius: 10px;
+            }
+            .logo-marca span {
+                font-size: 1.1rem;
+            }
+            .logo-text h2 {
+                font-size: 1rem;
+            }
+            .logo-text .subtitulo-logo {
+                font-size: 0.65rem;
+            }
+            .badge-sorteio {
+                font-size: 0.68rem;
+                padding: 4px 10px;
+                letter-spacing: 0.5px;
+            }
+            .btn-participar {
+                font-size: 0.75rem;
+                padding: 7px 15px;
+            }
+            .boas-vindas {
+                margin-top: 80px;
+                padding: 14px 16px;
+                border-radius: 18px;
+            }
+            .boas-vindas h3 {
+                font-size: 0.95rem;
+            }
+            .boas-vindas p {
+                font-size: 0.78rem;
+            }
+            .hero-wrapper {
+                margin-top: 14px;
+                border-radius: 18px;
+            }
+            .selo-ao-vivo {
+                top: 10px;
+                right: 10px;
+                font-size: 0.62rem;
+                padding: 4px 10px;
+            }
+            .card-glass {
+                padding: 18px 14px;
+                border-radius: 18px;
+                margin: 16px 0;
+            }
+            .btn-moderno {
+                padding: 11px 20px;
+                font-size: 0.82rem;
+                border-radius: 40px;
+            }
+            .btn-moderno.primary {
+                padding: 12px 24px;
+                font-size: 0.88rem;
+            }
+            .winner-card {
+                padding: 28px 14px;
+                border-radius: 18px;
+            }
+            .numero-sorteado {
+                font-size: clamp(1.8rem, 8vw, 3.5rem);
+            }
+            .btn-whatsapp {
+                padding: 12px 22px;
+                font-size: 0.85rem;
+            }
+            .vencedor-info {
+                padding: 14px 12px;
+                font-size: 0.8rem;
+                gap: 6px;
+            }
+            .vitoria-overlay .anel-vitoria {
+                width: 100px;
+                height: 100px;
+            }
+            @keyframes anelExpand {
+                0% {
+                    width: 40px;
+                    height: 40px;
+                    opacity: 1;
+                }
+                100% {
+                    width: 250px;
+                    height: 250px;
+                    opacity: 0;
+                }
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-container {
+                padding: 8px 10px;
+                gap: 6px;
+            }
+            .logo-marca {
+                width: 34px;
+                height: 34px;
+                border-radius: 8px;
+            }
+            .logo-marca span {
+                font-size: 0.95rem;
+            }
+            .logo-text h2 {
+                font-size: 0.85rem;
+            }
+            .logo-text .subtitulo-logo {
+                font-size: 0.6rem;
+            }
+            .badge-sorteio {
+                font-size: 0.62rem;
+                padding: 3px 8px;
+            }
+            .btn-participar {
+                font-size: 0.7rem;
+                padding: 6px 12px;
+            }
+            .boas-vindas {
+                margin-top: 70px;
+                padding: 12px 14px;
+                border-radius: 14px;
+            }
+            .boas-vindas h3 {
+                font-size: 0.85rem;
+            }
+            .boas-vindas p {
+                font-size: 0.72rem;
+            }
+            .hero-wrapper {
+                margin-top: 12px;
+                border-radius: 14px;
+            }
+            .selo-ao-vivo {
+                font-size: 0.58rem;
+                padding: 3px 8px;
+            }
+            .card-glass {
+                padding: 14px 10px;
+                border-radius: 14px;
+                margin: 12px 0;
+            }
+            .btn-moderno {
+                padding: 10px 16px;
+                font-size: 0.76rem;
+                border-radius: 36px;
+            }
+            .btn-moderno.primary {
+                padding: 11px 20px;
+                font-size: 0.82rem;
+            }
+            .btn-group {
+                gap: 10px;
+            }
+            .winner-card {
+                padding: 22px 10px;
+                border-radius: 14px;
+            }
+            .numero-sorteado {
+                font-size: clamp(1.5rem, 7vw, 2.8rem);
+            }
+            .counter {
+                font-size: 0.7rem;
+                padding: 5px 10px;
+            }
+            .btn-whatsapp {
+                padding: 10px 18px;
+                font-size: 0.78rem;
+                border-radius: 40px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .main-wrapper {
+                max-width: 720px;
+                padding: 0 24px;
+            }
+            .hero-wrapper {
+                border-radius: 24px;
+            }
+            .card-glass {
+                border-radius: 24px;
+                padding: 26px 24px;
+            }
+            .winner-card {
+                border-radius: 24px;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .main-wrapper {
+                max-width: 820px;
+                padding: 0 32px;
+            }
+            .hero-wrapper {
+                border-radius: 28px;
+            }
+            .card-glass {
+                border-radius: 28px;
+                padding: 30px 28px;
+            }
+            .winner-card {
+                border-radius: 28px;
+                padding: 40px 28px;
+            }
+            .boas-vindas {
+                border-radius: 28px;
+                padding: 22px 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Overlay de vitória -->
+    <div class="vitoria-overlay" id="vitoriaOverlay">
+        <div class="anel-vitoria"></div>
+    </div>
+
+    <div class="header">
+        <div class="header-container">
+            <div class="logo-area">
+                <!-- 🏷️ Substitua o <span> por <img src="sua-logo.png" alt="Atacadão Medeiros"> -->
+                <div class="logo-marca">
+                    <span>AM</span>
+                </div>
+                <div class="logo-text">
+                    <h2>ATACADÃO MEDEIROS</h2>
+                    <span class="subtitulo-logo">💥 Gigante da Economia</span>
+                </div>
+                <div class="badge-sorteio"><i class="fas fa-trophy"></i> SORTEIO OFICIAL</div>
+            </div>
+            <button class="btn-participar" id="scrollParticiparBtn"><i class="fas fa-users"></i> Participar</button>
+        </div>
+    </div>
+
+    <main class="main-wrapper">
+        <!-- Área de Boas-Vindas -->
+        <div class="boas-vindas">
+            <div class="icone-boas-vindas">🎯</div>
+            <h3>Bem-vindo ao Sorteio Oficial</h3>
+            <p>Clientes fiéis participam automaticamente dos nossos sorteios mensais.<br>Fique atento às novidades e promoções exclusivas do grupo.</p>
+            <div class="destaque-clientes">
+                <i class="fas fa-star"></i> Grupo oficial • Novidades mensais • Exclusivo para clientes
+            </div>
+        </div>
+
+        <!-- HERO CINEMATOGRÁFICO COM SELO AO VIVO -->
+        <div class="hero-wrapper">
+            <div class="hero-background-image"></div>
+            <!-- Selo "AO VIVO" decorativo -->
+            <div class="selo-ao-vivo">
+                <span class="dot"></span> AO VIVO
+            </div>
+            <!-- Espaço estratégico para PNGs decorativos: fogos, brilhos, selos promocionais -->
+            <!-- Exemplo: <img src="selo-promocao.png" class="decor-selo" alt="Promoção"> -->
+            <section class="hero">
+                <!-- Área reservada para overlay de textos promocionais ou imagens PNG decorativas -->
+            </section>
+        </div>
+
+        <div class="card-glass participants-area" id="participantesArea">
+            <h3><i class="fas fa-phone-alt"></i> BASE DE PARTICIPANTES</h3>
+            <p>Cole abaixo os números de telefone (um por linha). O sistema remove duplicatas automaticamente e suporta milhares!</p>
+            <textarea id="participantsInput" rows="8" placeholder="Exemplo:&#10;63999999999&#10;63988888888&#10;63977777777&#10;..."></textarea>
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                <div class="counter">
+                    <i class="fas fa-user-check"></i> Participantes carregados: <span id="contadorNumeros">0</span>
+                    &nbsp;|&nbsp; <i class="fas fa-users"></i> Grupo ao vivo: <span id="fakeCounter">1012</span>
+                </div>
+                <button class="btn-moderno secondary" id="resetBaseBtn" style="margin-top:0;"><i class="fas fa-eraser"></i> Resetar Lista</button>
+            </div>
+        </div>
+
+        <div class="card-glass roleta-container">
+            <h2><i class="fas fa-slot-machine"></i> SORTEIO AO VIVO</h2>
+            <div class="winner-card" id="winnerCard">
+                <div id="dynamicNumber" class="numero-sorteado">⚡ AGUARDANDO ⚡</div>
+            </div>
+            <div class="btn-group">
+                <button class="btn-moderno primary" id="sortearBtn"><i class="fas fa-play"></i> SORTEAR AGORA</button>
+                <button class="btn-moderno secondary" id="novoSorteioBtn"><i class="fas fa-redo-alt"></i> NOVO SORTEIO</button>
+                <button class="btn-moderno secondary" id="resetResultadoBtn"><i class="fas fa-broom"></i> RESETAR TUDO</button>
+            </div>
+            <!-- Botão WhatsApp do vencedor (aparece dinamicamente) -->
+            <div style="text-align: center; margin-top: 8px;">
+                <button class="btn-whatsapp" id="btnWhatsApp" onclick="abrirWhatsApp()">
+                    <i class="fab fa-whatsapp"></i> Chamar Vencedor no WhatsApp
+                </button>
+            </div>
+            <div class="result-area" id="resultArea">
+                <div id="resultadoDisplay" style="font-size: 1.1rem;">Nenhum sorteio realizado até o momento.</div>
+            </div>
+        </div>
+
+        <div class="vencedor-info" id="winnerInfoBox">
+            <div><i class="fas fa-chart-line"></i> <strong>Último vencedor:</strong> <span id="ultimoVencedor">---</span></div>
+            <div><i class="fas fa-calendar-alt"></i> <strong>Data/Hora:</strong> <span id="dataHoraSorteio">---</span></div>
+            <div><i class="fas fa-database"></i> <strong>Total de participantes na base:</strong> <span id="totalBaseInfo">0</span></div>
+        </div>
+        <footer>
+            <div class="icone-footer">🏪</div>
+            <p>© 2025 Atacadão Medeiros – Sorteio oficial e transparente. Boa sorte!</p>
+        </footer>
+    </main>
+
+    <script>
+        let participantesArray = [];
+        let sorteioAtivo = false;
+        let animationTimeout = null;
+        let vencedorAtual = null;
+        let dataHoraUltimo = null;
+
+        const textarea = document.getElementById('participantsInput');
+        const contadorSpan = document.getElementById('contadorNumeros');
+        const dynamicNumberDiv = document.getElementById('dynamicNumber');
+        const resultadoDisplay = document.getElementById('resultadoDisplay');
+        const ultimoVencedorSpan = document.getElementById('ultimoVencedor');
+        const dataHoraSorteioSpan = document.getElementById('dataHoraSorteio');
+        const totalBaseInfoSpan = document.getElementById('totalBaseInfo');
+
+        function processarListaParticipantes() {
+            const raw = textarea.value;
+            let linhas = raw.split(/\r?\n/);
+            const participantes = [];
+            for (let linha of linhas) {
+                let trimmed = linha.trim();
+                if (trimmed !== "") {
+                    participantes.push(trimmed);
+                }
+            }
+            const uniqueSet = new Set();
+            const unicos = [];
+            for (let p of participantes) {
+                if (!uniqueSet.has(p)) {
+                    uniqueSet.add(p);
+                    unicos.push(p);
+                }
+            }
+            participantesArray = unicos;
+            atualizarContadores();
+            return unicos.length;
+        }
+
+        function atualizarContadores() {
+            const total = participantesArray.length;
+            contadorSpan.innerText = total;
+            totalBaseInfoSpan.innerText = total;
+            if (total === 0) {
+                dynamicNumberDiv.innerText = "📭 SEM DADOS";
+            } else {
+                if (!sorteioAtivo && dynamicNumberDiv.innerText === "📭 SEM DADOS") {
+                    dynamicNumberDiv.innerText = "🎲 PRONTO 🎲";
+                }
+            }
+        }
+
+        function atualizarUIResultado(vencedor, dataObj = null) {
+            if (!vencedor) {
+                resultadoDisplay.innerHTML = "Nenhum sorteio realizado até o momento.";
+                ultimoVencedorSpan.innerText = "---";
+                dataHoraSorteioSpan.innerText = "---";
+                return;
+            }
+            resultadoDisplay.innerHTML =
+                `<i class="fas fa-crown" style="color:#ffd966"></i> <strong style="font-size:1.4rem;">🎉 VENCEDOR(A) 🎉</strong><br>
+                                           <span style="font-size:2rem; font-weight:800;">${vencedor}</span>`;
+            ultimoVencedorSpan.innerText = vencedor;
+            if (dataObj) {
+                dataHoraSorteioSpan.innerText = dataObj.toLocaleString('pt-BR');
+            } else {
+                dataHoraSorteioSpan.innerText = new Date().toLocaleString('pt-BR');
+            }
+        }
+
+        function lancarConfetes() {
+            canvasConfetti({
+                particleCount: 180,
+                spread: 100,
+                origin: { y: 0.6 },
+                startVelocity: 20,
+                colors: ['#174EA6', '#E53935', '#ffffff', '#ffd966', '#0F2D5C']
+            });
+            canvasConfetti({
+                particleCount: 70,
+                spread: 130,
+                origin: { y: 0.4, x: 0.2 },
+                startVelocity: 25,
+                colors: ['#174EA6', '#E53935', '#ffd966']
+            });
+            canvasConfetti({
+                particleCount: 70,
+                spread: 130,
+                origin: { y: 0.4, x: 0.8 },
+                startVelocity: 25,
+                colors: ['#174EA6', '#E53935', '#ffd966']
+            });
+        }
+
+        function efeitoVitoriaNumero() {
+            dynamicNumberDiv.classList.add('glow-animate');
+            setTimeout(() => dynamicNumberDiv.classList.remove('glow-animate'), 700);
+            lancarConfetes();
+            // Dispara overlay de vitória
+            dispararOverlayVitoria();
+            // Atualiza botão WhatsApp
+            atualizarBotaoWhatsApp();
+        }
+
+        function abortarAnimacao() {
+            if (animationTimeout) {
+                clearTimeout(animationTimeout);
+                animationTimeout = null;
+            }
+            sorteioAtivo = false;
+            dynamicNumberDiv.classList.remove('blur-effect');
+            document.body.classList.remove('sorteio-ativo');
+        }
+
+        // ========== ANIMAÇÃO DRAMÁTICA COM 45 SEGUNDOS: RÁPIDO NO INÍCIO, DESACELERAÇÃO TARDIA ==========
+        function iniciarSorteioAnimado() {
+            if (sorteioAtivo) return;
+            if (participantesArray.length === 0) {
+                alert("⚠️ Nenhum participante carregado! Cole números na área de participantes.");
+                return;
+            }
+            abortarAnimacao();
+
+            sorteioAtivo = true;
+            document.body.classList.add('sorteio-ativo');
+            dynamicNumberDiv.classList.add('blur-effect');
+
+            const indexVencedorFinal = Math.floor(Math.random() * participantesArray.length);
+            const vencedorFinal = participantesArray[indexVencedorFinal];
+
+            // Total de passos para garantir ~45 segundos (ajuste fino)
+            const totalSteps = 520;
+            let currentStep = 0;
+
+            function getRandomParticipant() {
+                const randIdx = Math.floor(Math.random() * participantesArray.length);
+                return participantesArray[randIdx];
+            }
+
+            function stepAnimation() {
+                if (!sorteioAtivo) return;
+
+                if (currentStep < totalSteps) {
+                    let tempNumber = getRandomParticipant();
+                    dynamicNumberDiv.innerText = tempNumber;
+
+                    let delay;
+                    // Fase 1: 0s até ~30s (primeiros ~350 passos) -> extremamente rápido (18ms)
+                    if (currentStep < 350) {
+                        delay = 18; // muito rápido, sensação de cassino
+                    }
+                    // Fase 2: 30s até ~35s (350 até 410) -> desaceleração leve: 18ms -> 80ms
+                    else if (currentStep < 410) {
+                        let progress = (currentStep - 350) / 60; // 0 a 1
+                        delay = 18 + (80 - 18) * Math.pow(progress, 1.2);
+                    }
+                    // Fase 3: 35s até ~40s (410 até 470) -> desaceleração média: 80ms -> 350ms
+                    else if (currentStep < 470) {
+                        let progress = (currentStep - 410) / 60;
+                        delay = 80 + (350 - 80) * Math.pow(progress, 1.3);
+                    }
+                    // Fase 4: 40s até ~45s (470 até 520) -> desaceleração forte, suspense extremo: 350ms -> 950ms
+                    else {
+                        let progress = (currentStep - 470) / 50;
+                        delay = 350 + (950 - 350) * Math.pow(progress, 1.6);
+                    }
+
+                    delay = Math.min(delay, 950);
+                    currentStep++;
+                    animationTimeout = setTimeout(() => {
+                        stepAnimation();
+                    }, delay);
+                } else {
+                    // Final: mostra o vencedor real
+                    dynamicNumberDiv.innerText = vencedorFinal;
+                    dynamicNumberDiv.classList.remove('blur-effect');
+                    document.body.classList.remove('sorteio-ativo');
+                    vencedorAtual = vencedorFinal;
+                    const dataSorteio = new Date();
+                    dataHoraUltimo = dataSorteio;
+                    atualizarUIResultado(vencedorFinal, dataSorteio);
+                    efeitoVitoriaNumero();
+                    sorteioAtivo = false;
+                    animationTimeout = null;
+                }
+            }
+
+            stepAnimation();
+        }
+
+        function novoSorteio() {
+            if (sorteioAtivo) {
+                abortarAnimacao();
+            }
+            vencedorAtual = null;
+            dataHoraUltimo = null;
+            atualizarUIResultado(null);
+            esconderBotaoWhatsApp();
+            if (participantesArray.length > 0) {
+                dynamicNumberDiv.innerText = "🎲 PRONTO 🎲";
+                dynamicNumberDiv.classList.remove('blur-effect');
+            } else {
+                dynamicNumberDiv.innerText = "📭 SEM DADOS";
+            }
+        }
+
+        function resetarCompleto() {
+            if (sorteioAtivo) abortarAnimacao();
+            textarea.value = "";
+            participantesArray = [];
+            atualizarContadores();
+            novoSorteio();
+            dynamicNumberDiv.innerText = "📭 COLE NÚMEROS";
+            vencedorAtual = null;
+            dataHoraUltimo = null;
+            atualizarUIResultado(null);
+            esconderBotaoWhatsApp();
+        }
+
+        function resetarBase() {
+            if (sorteioAtivo) abortarAnimacao();
+            textarea.value = "";
+            participantesArray = [];
+            atualizarContadores();
+            if (participantesArray.length === 0) {
+                dynamicNumberDiv.innerText = "📭 BASE VAZIA";
+            }
+            novoSorteio();
+            esconderBotaoWhatsApp();
+        }
+
+        function onTextareaChange() {
+            if (sorteioAtivo) return;
+            processarListaParticipantes();
+            if (participantesArray.length > 0 && !sorteioAtivo && (dynamicNumberDiv.innerText ===
+                    "📭 COLE NÚMEROS" || dynamicNumberDiv.innerText === "📭 BASE VAZIA" || dynamicNumberDiv
+                    .innerText === "⚡ AGUARDANDO ⚡")) {
+                dynamicNumberDiv.innerText = "🎲 PRONTO 🎲";
+            } else if (participantesArray.length === 0 && !sorteioAtivo) {
+                dynamicNumberDiv.innerText = "📭 BASE VAZIA";
+            }
+        }
+
+        // ========== OVERLAY DE VITÓRIA ==========
+        const vitoriaOverlay = document.getElementById('vitoriaOverlay');
+        let overlayTimeout = null;
+
+        function dispararOverlayVitoria() {
+            if (!vitoriaOverlay) return;
+            if (overlayTimeout) clearTimeout(overlayTimeout);
+            vitoriaOverlay.classList.remove('desaparecendo');
+            vitoriaOverlay.classList.add('ativo');
+            overlayTimeout = setTimeout(() => {
+                vitoriaOverlay.classList.add('desaparecendo');
+                vitoriaOverlay.classList.remove('ativo');
+            }, 2200);
+        }
+
+        // ========== BOTÃO WHATSAPP ==========
+        const btnWhatsApp = document.getElementById('btnWhatsApp');
+        let numeroWhatsAppAtual = null;
+
+        function atualizarBotaoWhatsApp() {
+            if (!btnWhatsApp) return;
+            if (vencedorAtual && vencedorAtual.length >= 8 && /^\d+$/.test(vencedorAtual)) {
+                numeroWhatsAppAtual = vencedorAtual;
+                btnWhatsApp.classList.add('visivel');
+                // Reinicia animação
+                btnWhatsApp.style.animation = 'none';
+                btnWhatsApp.offsetHeight;
+                btnWhatsApp.style.animation = 'apareceWhatsApp 0.5s ease-out';
+            } else {
+                esconderBotaoWhatsApp();
+            }
+        }
+
+        function esconderBotaoWhatsApp() {
+            if (!btnWhatsApp) return;
+            btnWhatsApp.classList.remove('visivel');
+            numeroWhatsAppAtual = null;
+        }
+
+        function abrirWhatsApp() {
+            if (!numeroWhatsAppAtual) return;
+            let numeroLimpo = numeroWhatsAppAtual.replace(/\D/g, '');
+            // Se não começar com 55, adiciona o código do Brasil
+            if (!numeroLimpo.startsWith('55')) {
+                numeroLimpo = '55' + numeroLimpo;
+            }
+            const url = 'https://wa.me/' + numeroLimpo;
+            window.open(url, '_blank');
+        }
+
+        // ========== OBSERVER PARA DETECTAR MUDANÇAS NO DISPLAY DO VENCEDOR ==========
+        if (dynamicNumberDiv) {
+            const observer = new MutationObserver(() => {
+                const texto = dynamicNumberDiv.innerText || '';
+                // Se parece um número de telefone (somente dígitos, 8+ caracteres)
+                if (/^\d{8,}$/.test(texto.trim()) && participantesArray.includes(texto.trim())) {
+                    if (!vencedorAtual || vencedorAtual !== texto.trim()) {
+                        vencedorAtual = texto.trim();
+                        atualizarBotaoWhatsApp();
+                    }
+                }
+                // Se voltou a ser placeholder
+                if (['⚡ AGUARDANDO ⚡', '🎲 PRONTO 🎲', '📭 SEM DADOS', '📭 COLE NÚMEROS', '📭 BASE VAZIA'].includes(
+                        texto.trim())) {
+                    esconderBotaoWhatsApp();
+                }
+            });
+            observer.observe(dynamicNumberDiv, { characterData: true, childList: true, subtree: true });
+        }
+
+        document.getElementById('sortearBtn').addEventListener('click', () => {
+            if (participantesArray.length === 0) {
+                alert("❌ Nenhum participante cadastrado! Adicione números na área acima.");
+                return;
+            }
+            iniciarSorteioAnimado();
+        });
+        document.getElementById('novoSorteioBtn').addEventListener('click', () => {
+            if (sorteioAtivo) abortarAnimacao();
+            novoSorteio();
+        });
+        document.getElementById('resetResultadoBtn').addEventListener('click', () => {
+            resetarCompleto();
+        });
+        document.getElementById('resetBaseBtn').addEventListener('click', () => {
+            resetarBase();
+        });
+        document.getElementById('scrollParticiparBtn').addEventListener('click', () => {
+            document.getElementById('participantesArea').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        textarea.addEventListener('input', function() {
+            onTextareaChange();
+        });
+
+        function carregarExemploInicial() {
+            const exemplo =
+                "63999911111\n63988822222\n63977733333\n63966644444\n63955555555\n63944466666\n63933377777";
+            textarea.value = exemplo;
+            processarListaParticipantes();
+            dynamicNumberDiv.innerText = "🎲 PRONTO 🎲";
+            atualizarUIResultado(null);
+            esconderBotaoWhatsApp();
+        }
+
+        carregarExemploInicial();
+
+        // ========== CONTADOR FICTÍCIO OSCILANDO LENTAMENTE ENTRE 1009 E 1020 ==========
+        const fakeCounterSpan = document.getElementById('fakeCounter');
+        let fakeValue = 1012;
+        let fakeDirection = 1; // 1 para cima, -1 para baixo
+        setInterval(() => {
+            if (!fakeCounterSpan) return;
+            // Oscilação suave e lenta entre 1009 e 1020
+            fakeValue += fakeDirection;
+            if (fakeValue >= 1020) {
+                fakeValue = 1020;
+                fakeDirection = -1;
+            } else if (fakeValue <= 1009) {
+                fakeValue = 1009;
+                fakeDirection = 1;
+            }
+            fakeCounterSpan.innerText = fakeValue;
+        }, 3800); // muda a cada 3.8 segundos, sensação orgânica
+    </script>
+</body>
+</html>
